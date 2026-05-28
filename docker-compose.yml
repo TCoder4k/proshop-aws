@@ -14,10 +14,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 20s
 
   backend:
-    build: .
-    dockerfile: backend/Dockerfile
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: proshop-backend
     restart: unless-stopped
     depends_on:
@@ -31,8 +33,9 @@ services:
       - proshop-net
 
   frontend:
-    build: ./frontend
-    dockerfile: Dockerfile
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: proshop-frontend
     restart: unless-stopped
     networks:
